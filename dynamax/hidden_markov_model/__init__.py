@@ -7,6 +7,11 @@ from dynamax.hidden_markov_model.models.gamma_hmm import GammaHMM
 from dynamax.hidden_markov_model.models.gaussian_hmm import GaussianHMM, DiagonalGaussianHMM, SphericalGaussianHMM, SharedCovarianceGaussianHMM, LowRankGaussianHMM
 from dynamax.hidden_markov_model.models.gmm_hmm import GaussianMixtureHMM, DiagonalGaussianMixtureHMM
 from dynamax.hidden_markov_model.models.linreg_hmm import LinearRegressionHMM
+
+# NuttidaLab experiments
+from dynamax.hidden_markov_model.models.circreg_hmm import CircularRegressionHMM
+from dynamax.hidden_markov_model.models.circreg_oc_hmm import OCCircularRegressionHMM
+
 from dynamax.hidden_markov_model.models.logreg_hmm import LogisticRegressionHMM
 from dynamax.hidden_markov_model.models.multinomial_hmm import MultinomialHMM
 from dynamax.hidden_markov_model.models.poisson_hmm import PoissonHMM

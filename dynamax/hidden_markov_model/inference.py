@@ -120,6 +120,9 @@ def hmm_filter(
         filtered posterior distribution
 
     """
+
+    if len(log_likelihoods.shape) != 2: log_likelihoods = jnp.squeeze(log_likelihoods, axis=-1)
+
     num_timesteps, num_states = log_likelihoods.shape
 
     def _step(carry, t):
@@ -168,6 +171,9 @@ def hmm_backward_filter(
         marginal log likelihood and backward messages.
 
     """
+
+    if len(log_likelihoods.shape) != 2: log_likelihoods = jnp.squeeze(log_likelihoods, axis=-1)
+    
     num_timesteps, num_states = log_likelihoods.shape
 
     def _step(carry, t):
@@ -273,6 +279,9 @@ def hmm_smoother(
         posterior distribution
 
     """
+
+    if len(log_likelihoods.shape) != 2: log_likelihoods = jnp.squeeze(log_likelihoods, axis=-1)
+
     num_timesteps, num_states = log_likelihoods.shape
 
     # Run the HMM filter
@@ -352,6 +361,9 @@ def hmm_fixed_lag_smoother(
         posterior distribution
 
     """
+
+    if len(log_likelihoods.shape) != 2: log_likelihoods = jnp.squeeze(log_likelihoods, axis=-1)
+
     num_timesteps, num_states = log_likelihoods.shape
 
     def _step(carry, t):
@@ -455,6 +467,9 @@ def hmm_posterior_mode(
         most likely state sequence
 
     """
+
+    if len(log_likelihoods.shape) != 2: log_likelihoods = jnp.squeeze(log_likelihoods, axis=-1)
+
     num_timesteps, num_states = log_likelihoods.shape
 
     # Run the backward pass
@@ -505,6 +520,9 @@ def hmm_posterior_sample(
         :sample of the latent states, $z_{1:T}$
 
     """
+
+    if len(log_likelihoods.shape) != 2: log_likelihoods = jnp.squeeze(log_likelihoods, axis=-1)
+
     num_timesteps, num_states = log_likelihoods.shape
 
     # Run the HMM filter
