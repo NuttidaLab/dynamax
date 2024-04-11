@@ -15,19 +15,19 @@ from typing import NamedTuple, Optional, Tuple, Union
 tfd = tfp.distributions
 tfb = tfp.bijectors
 
-class ParamsCircularRegressionHMMEmissions(NamedTuple):
+class ParamsCircularRegressionBiasedHMMEmissions(NamedTuple):
     weights: Union[Float[Array, "state_dim emission_dim input_dim"], ParameterProperties]
     biases: Union[Float[Array, "state_dim emission_dim"], ParameterProperties]
     covs: Union[Float[Array, "state_dim emission_dim emission_dim"], ParameterProperties]
 
 
-class ParamsCircularRegressionHMM(NamedTuple):
+class ParamsCircularRegressionBiasedHMM(NamedTuple):
     initial: ParamsStandardHMMInitialState
     transitions: ParamsStandardHMMTransitions
-    emissions: ParamsCircularRegressionHMMEmissions
+    emissions: ParamsCircularRegressionBiasedHMMEmissions
 
 
-class CircularRegressionHMMEmissions(HMMEmissions):
+class CircularRegressionBiasedHMMEmissions(HMMEmissions):
     def __init__(self,
                  num_states,
                  input_dim,
@@ -77,11 +77,11 @@ class CircularRegressionHMMEmissions(HMMEmissions):
 
         # Only use the values above if the user hasn't specified their own
         default = lambda x, x0: x if x is not None else x0
-        params = ParamsCircularRegressionHMMEmissions(
+        params = ParamsCircularRegressionBiasedHMMEmissions(
             weights=default(emission_weights, _emission_weights),
             biases=default(emission_biases, _emission_biases),
             covs=default(emission_covariances, _emission_covs))
-        props = ParamsCircularRegressionHMMEmissions(
+        props = ParamsCircularRegressionBiasedHMMEmissions(
             weights=ParameterProperties(),
             biases=ParameterProperties(),
             covs=ParameterProperties(constrainer=RealToPSDBijector()))
@@ -97,7 +97,7 @@ class CircularRegressionHMMEmissions(HMMEmissions):
 
 
 
-class CircularRegressionHMM(HMM):
+class CircularRegressionBiasedHMM(HMM):
     r"""An HMM whose emissions come from a linear regression with state-dependent weights.
     The emission distribution is a von Mises distribution.
     Single bias and covariance matrix per state. The emission weights are input dependent.
@@ -121,7 +121,7 @@ class CircularRegressionHMM(HMM):
         self.input_dim = input_dim
         initial_component = StandardHMMInitialState(num_states, initial_probs_concentration=initial_probs_concentration)
         transition_component = StandardHMMTransitions(num_states, concentration=transition_matrix_concentration, stickiness=transition_matrix_stickiness)
-        emission_component = CircularRegressionHMMEmissions(num_states, input_dim, emission_dim)
+        emission_component = CircularRegressionBiasedHMMEmissions(num_states, input_dim, emission_dim)
         super().__init__(num_states, initial_component, transition_component, emission_component)
 
     @property
@@ -163,4 +163,4 @@ class CircularRegressionHMM(HMM):
         params["initial"], props["initial"] = self.initial_component.initialize(key1, method=method, initial_probs=initial_probs)
         params["transitions"], props["transitions"] = self.transition_component.initialize(key2, method=method, transition_matrix=transition_matrix)
         params["emissions"], props["emissions"] = self.emission_component.initialize(key3, method=method, emission_weights=emission_weights, emission_biases=emission_biases, emission_covariances=emission_covariances, emissions=emissions)
-        return ParamsCircularRegressionHMM(**params), ParamsCircularRegressionHMM(**props)
+        return ParamsCircularRegressionBiasedHMM(**params), ParamsCircularRegressionBiasedHMM(**props)

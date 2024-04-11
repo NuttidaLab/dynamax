@@ -120,8 +120,10 @@ def hmm_filter(
         filtered posterior distribution
 
     """
+    # print(log_likelihoods.shape)
+    # print(log_likelihoods)
 
-    if len(log_likelihoods.shape) != 2: log_likelihoods = jnp.squeeze(log_likelihoods, axis=-1)
+    while len(log_likelihoods.shape) > 2: log_likelihoods = jnp.squeeze(log_likelihoods, axis=-1)
 
     num_timesteps, num_states = log_likelihoods.shape
 
@@ -172,7 +174,7 @@ def hmm_backward_filter(
 
     """
 
-    if len(log_likelihoods.shape) != 2: log_likelihoods = jnp.squeeze(log_likelihoods, axis=-1)
+    while len(log_likelihoods.shape) > 2: log_likelihoods = jnp.squeeze(log_likelihoods, axis=-1)
     
     num_timesteps, num_states = log_likelihoods.shape
 
@@ -280,7 +282,7 @@ def hmm_smoother(
 
     """
 
-    if len(log_likelihoods.shape) != 2: log_likelihoods = jnp.squeeze(log_likelihoods, axis=-1)
+    while len(log_likelihoods.shape) > 2: log_likelihoods = jnp.squeeze(log_likelihoods, axis=-1)
 
     num_timesteps, num_states = log_likelihoods.shape
 
@@ -362,7 +364,7 @@ def hmm_fixed_lag_smoother(
 
     """
 
-    if len(log_likelihoods.shape) != 2: log_likelihoods = jnp.squeeze(log_likelihoods, axis=-1)
+    while len(log_likelihoods.shape) > 2: log_likelihoods = jnp.squeeze(log_likelihoods, axis=-1)
 
     num_timesteps, num_states = log_likelihoods.shape
 
@@ -468,7 +470,7 @@ def hmm_posterior_mode(
 
     """
 
-    if len(log_likelihoods.shape) != 2: log_likelihoods = jnp.squeeze(log_likelihoods, axis=-1)
+    while len(log_likelihoods.shape) > 2: log_likelihoods = jnp.squeeze(log_likelihoods, axis=-1)
 
     num_timesteps, num_states = log_likelihoods.shape
 
@@ -521,7 +523,7 @@ def hmm_posterior_sample(
 
     """
 
-    if len(log_likelihoods.shape) != 2: log_likelihoods = jnp.squeeze(log_likelihoods, axis=-1)
+    while len(log_likelihoods.shape) > 2: log_likelihoods = jnp.squeeze(log_likelihoods, axis=-1)
 
     num_timesteps, num_states = log_likelihoods.shape
 

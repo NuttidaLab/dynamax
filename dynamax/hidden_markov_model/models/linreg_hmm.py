@@ -90,6 +90,7 @@ class LinearRegressionHMMEmissions(HMMEmissions):
     def distribution(self, params, state, inputs):
         prediction = params.weights[state] @ inputs
         prediction +=  params.biases[state]
+        # return tfd.VonMises(prediction, 1/params.covs[state])
         return tfd.MultivariateNormalFullCovariance(prediction, params.covs[state])
 
     def log_prior(self, params):

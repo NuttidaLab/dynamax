@@ -8,9 +8,18 @@ from dynamax.hidden_markov_model.models.gaussian_hmm import GaussianHMM, Diagona
 from dynamax.hidden_markov_model.models.gmm_hmm import GaussianMixtureHMM, DiagonalGaussianMixtureHMM
 from dynamax.hidden_markov_model.models.linreg_hmm import LinearRegressionHMM
 
+# ========================
 # NuttidaLab experiments
-from dynamax.hidden_markov_model.models.circreg_hmm import CircularRegressionHMM
-from dynamax.hidden_markov_model.models.circreg_oc_hmm import OCCircularRegressionHMM
+# ========================
+from dynamax.hidden_markov_model.models.NuttidaLab_ET_hmm import ET_HMM # Input Dependent Emissions and Transitions
+from dynamax.hidden_markov_model.models.NuttidaLab_E_hmm import E_HMM # Input Dependent Emissions
+from dynamax.hidden_markov_model.models.NuttidaLab_T_hmm import T_HMM # Input Dependent Transitions
+
+# others
+from dynamax.hidden_markov_model.models.NuttidaLab_circreg_biased_hmm import CircularRegressionBiasedHMM
+
+# ========================
+
 
 from dynamax.hidden_markov_model.models.logreg_hmm import LogisticRegressionHMM
 from dynamax.hidden_markov_model.models.multinomial_hmm import MultinomialHMM
